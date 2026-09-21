@@ -1,0 +1,809 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-overlay">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <span class="hero-subtitle">
+                        MCC CONSTRUCTION
+                    </span>
+
+                    <h1 class="hero-title">
+                        Solid Foundations
+                        <br />
+                        Since 1964
+                    </h1>
+
+                    <h2 class="hero-heading">
+                        Building South Africa's Future
+                    </h2>
+
+                    <p class="hero-text">
+                        Professional construction, civil engineering
+                        and infrastructure solutions delivered with
+                        quality, safety and excellence.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a asp-controller="Quote"
+                           asp-action="Index"
+                           class="btn btn-warning">
+
+                            Request a Quote
+
+                            <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                        </a>
+
+                        <a asp-controller="Home"
+                           asp-action="Services"
+                           class="btn btn-outline-light">
+
+                            Our Services
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= COMPANY STATS ================= -->
+
+<section class="stats-section">
+
+    <div class="container">
+
+        <div class="row text-center g-4">
+
+            <div class="col-md-3">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <h2>
+                        60+
+                    </h2>
+
+                    <p>
+                        Years of Experience
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <h2>
+                        100+
+                    </h2>
+
+                    <p>
+                        Projects Completed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h2>
+                        R1B+
+                    </h2>
+
+                    <p>
+                        Project Value
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-handshake"></i>
+
+                    <h2>
+                        3
+                    </h2>
+
+                    <p>
+                        KZN Branches
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT MCC ================= -->
+
+<section class="about-preview py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <div class="about-image-wrapper">
+
+                    <!-- CORRECT IMAGE PATH -->
+
+                    <img src="~/Images/about/about.jpg"
+                         class="img-fluid"
+                         alt="MCC Construction project">
+
+                    <div class="experience-badge">
+
+                        <strong>
+                            60+
+                        </strong>
+
+                        <span>
+                            Years of
+                            <br />
+                            Excellence
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <span class="section-label">
+                    ABOUT MCC
+                </span>
+
+                <h2 class="section-title">
+                    Building More Than
+                    <span>Structures</span>
+                </h2>
+
+                <p class="section-text">
+                    MCC Construction, trading as Melmoth Cartage &
+                    Cement Products, has been a cornerstone of
+                    KwaZulu-Natal's construction and infrastructure
+                    development since 1964.
+                </p>
+
+                <p class="section-text">
+                    From our beginnings in transport, MCC expanded
+                    into earthworks, road building, civil engineering
+                    and large-scale construction projects.
+                </p>
+
+                <div class="about-features">
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Quality workmanship
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Safety-focused delivery
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Experienced team
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Professional project management
+                    </div>
+
+                </div>
+
+                <a asp-controller="Home"
+                   asp-action="About"
+                   class="btn btn-dark-blue mt-4">
+
+                    Learn More About MCC
+
+                    <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+
+<section class="services-section">
+
+    <div class="container">
+
+        <div class="section-heading text-center">
+
+            <span class="section-label">
+                WHAT WE DO
+            </span>
+
+            <h2 class="section-title">
+                Our Construction Services
+            </h2>
+
+            <p>
+                From residential developments to major civil
+                infrastructure projects, MCC has the capability
+                and experience to deliver.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-3">
+
+
+            <!-- DEVELOPMENTS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-city"></i>
+
+                    </div>
+
+                    <h4>
+                        Developments
+                    </h4>
+
+                    <p>
+                        Large-scale urban developments,
+                        mixed-use projects and complete
+                        construction solutions.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMMERCIAL -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-building"></i>
+
+                    </div>
+
+                    <h4>
+                        Commercial
+                    </h4>
+
+                    <p>
+                        Modern office buildings, retail spaces
+                        and industrial facilities designed
+                        around business requirements.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESIDENTIAL -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-house"></i>
+
+                    </div>
+
+                    <h4>
+                        Residential
+                    </h4>
+
+                    <p>
+                        Quality homes, estates and residential
+                        complexes built for comfort, durability
+                        and lasting value.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ALTERATIONS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-hammer"></i>
+
+                    </div>
+
+                    <h4>
+                        Alterations
+                    </h4>
+
+                    <p>
+                        Renovations, extensions and upgrades
+                        that improve existing buildings while
+                        maintaining structural integrity.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CIVILS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-road"></i>
+
+                    </div>
+
+                    <h4>
+                        Civil Engineering
+                    </h4>
+
+                    <p>
+                        Infrastructure, roadworks, water
+                        management and public-sector
+                        development projects.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT MANAGEMENT -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="service-card">
+
+                    <div class="service-icon-wrapper">
+
+                        <i class="fa-solid fa-helmet-safety"></i>
+
+                    </div>
+
+                    <h4>
+                        Project Delivery
+                    </h4>
+
+                    <p>
+                        Experienced planning, coordination
+                        and project execution focused on
+                        quality and efficiency.
+                    </p>
+
+                    <a asp-controller="Home"
+                       asp-action="Services">
+
+                        Learn More
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WHY MCC ================= -->
+
+<section class="why-mcc-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <span class="section-label">
+                    WHY MCC
+                </span>
+
+                <h2 class="section-title text-white">
+                    Experience You Can
+                    <span>Build On</span>
+                </h2>
+
+                <p class="why-text">
+                    Our experience across construction,
+                    infrastructure and civil engineering
+                    allows us to approach every project
+                    with confidence and professionalism.
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="why-grid">
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-award"></i>
+
+                        <h4>
+                            Experience
+                        </h4>
+
+                        <p>
+                            Decades of industry experience.
+                        </p>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <h4>
+                            Safety
+                        </h4>
+
+                        <p>
+                            Safety is central to our operations.
+                        </p>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-medal"></i>
+
+                        <h4>
+                            Quality
+                        </h4>
+
+                        <p>
+                            High standards on every project.
+                        </p>
+
+                    </div>
+
+
+                    <div class="why-item">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        <h4>
+                            People
+                        </h4>
+
+                        <p>
+                            Skilled teams and strong relationships.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURED PROJECTS ================= -->
+
+<section class="projects-preview py-5">
+
+    <div class="container">
+
+        <div class="section-heading text-center">
+
+            <span class="section-label">
+                OUR WORK
+            </span>
+
+            <h2 class="section-title">
+                Featured Projects
+            </h2>
+
+            <p>
+                A selection of landmark projects delivered by
+                MCC Construction across KwaZulu-Natal.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-3">
+
+
+            <!-- PROJECT 1 -->
+
+            <div class="col-lg-4">
+
+                <div class="project-card">
+
+                    <div class="project-image">
+
+                        <img src="~/Images/projects/project1.jpg"
+                             alt="University of Zululand Engineering Building"
+                             loading="lazy" />
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <span>
+                            PUBLIC USE DEVELOPMENT
+                        </span>
+
+                        <h4>
+                            University of Zululand
+                        </h4>
+
+                        <p>
+                            Engineering Building
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT 2 -->
+
+            <div class="col-lg-4">
+
+                <div class="project-card">
+
+                    <div class="project-image">
+
+                        <img src="~/Images/projects/project2.jpg"
+                             alt="Catherine Booth Hospital"
+                             loading="lazy" />
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <span>
+                            PUBLIC USE DEVELOPMENT
+                        </span>
+
+                        <h4>
+                            Catherine Booth Hospital
+                        </h4>
+
+                        <p>
+                            Catherine Booth Hospital
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT 3 -->
+
+            <div class="col-lg-4">
+
+                <div class="project-card">
+
+                    <div class="project-image">
+
+                        <img src="~/Images/projects/project3.jpg"
+                             alt="University of Zululand Student Accommodation"
+                             loading="lazy" />
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <span>
+                            PUBLIC USE DEVELOPMENT
+                        </span>
+
+                        <h4>
+                            University of Zululand
+                        </h4>
+
+                        <p>
+                            Student Accommodation
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="text-center mt-5">
+
+            <a asp-controller="Home"
+               asp-action="Projects"
+               class="btn btn-dark-blue">
+
+                View All Projects
+
+                <i class="fa-solid fa-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="quote-cta">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+
+                <span>
+                    HAVE A PROJECT IN MIND?
+                </span>
+
+                <h2>
+                    Let's Build Something Great Together.
+                </h2>
+
+                <p>
+                    Tell us about your construction project
+                    and our team will get back to you.
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-4 text-lg-end">
+
+                <a asp-controller="Quote"
+                   asp-action="Index"
+                   class="btn btn-warning btn-lg">
+
+                    Request a Quote
+
+                    <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
