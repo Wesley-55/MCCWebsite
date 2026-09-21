@@ -1,0 +1,764 @@
+:root {
+    --primary: #003366;
+    --secondary: #FFC107;
+    --light: #ffffff;
+    --grey: #f5f5f5;
+    --dark: #222;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins',sans-serif;
+    overflow-x: hidden;
+}
+
+.top-bar {
+    background: var(--primary);
+    color: white;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+    .top-bar a {
+        color: white;
+        margin-left: 15px;
+        text-decoration: none;
+    }
+
+.navbar {
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.nav-link {
+    font-weight: 600;
+    color: #222 !important;
+    margin-left: 18px;
+}
+
+    .nav-link:hover {
+        color: var(--secondary) !important;
+    }
+
+.btn-warning {
+    background: var(--secondary);
+    border: none;
+    font-weight: 600;
+    padding: 10px 25px;
+}
+
+    .btn-warning:hover {
+        background: #e6ac00;
+    }
+
+footer {
+    background: var(--primary);
+    color: white;
+    padding: 70px 0;
+    margin-top: 80px;
+}
+
+    footer h3 {
+        margin-bottom: 20px;
+    }
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    footer li {
+        margin-bottom: 12px;
+    }
+
+    footer hr {
+        margin: 40px 0;
+        opacity: .2;
+    }
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-name {
+    color: #003366;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.company-tagline {
+    color: #666;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        transition: .3s;
+    }
+
+        .footer-links a:hover {
+            color: #FFC107;
+            padding-left: 5px;
+        }
+main {
+    min-height: 70vh;
+}
+
+/* =========================================================
+   MCC PROJECT IMAGE FIX
+   ========================================================= */
+
+.featured-project-image {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+    .featured-project-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+/* PROJECT PORTFOLIO IMAGES */
+
+.professional-project-image {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+    .professional-project-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.4s ease;
+    }
+
+.professional-project-card:hover
+.professional-project-image img {
+    transform: scale(1.04);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 991px) {
+
+    .featured-project-image {
+        height: 360px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .featured-project-image {
+        height: 280px;
+    }
+
+    .professional-project-image {
+        height: 230px;
+    }
+}
+
+/* =========================================================
+   MCC PROJECTS - IMAGE FIX & PROFESSIONAL DESIGN
+   ========================================================= */
+
+.featured-project-image {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+    .featured-project-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+.professional-project-image {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #e9ecef;
+}
+
+    .professional-project-image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.4s ease;
+    }
+
+
+.professional-project-card {
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+    .professional-project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.13);
+    }
+
+
+        .professional-project-card:hover
+        .professional-project-image img {
+            transform: scale(1.04);
+        }
+
+
+.project-number {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: #ffbd00;
+    color: #003b70;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+}
+
+
+.professional-project-content {
+    padding: 25px;
+}
+
+
+    .professional-project-content .project-type {
+        display: block;
+        color: #ffb900;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        margin-bottom: 10px;
+    }
+
+
+    .professional-project-content h3 {
+        color: #003b70;
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin-bottom: 8px;
+    }
+
+
+    .professional-project-content p {
+        color: #777777;
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+
+/* FEATURED PROJECT */
+
+.featured-project-wrapper {
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.10);
+}
+
+
+.featured-project-content {
+    height: 100%;
+    padding: 55px 45px;
+    background: #003f73;
+    color: #ffffff;
+}
+
+
+    .featured-project-content > span {
+        color: #ffbd00;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+
+
+    .featured-project-content h2 {
+        color: #ffffff;
+        font-size: 34px;
+        font-weight: 800;
+        margin-top: 18px;
+        margin-bottom: 5px;
+    }
+
+
+    .featured-project-content h3 {
+        color: #d9e4ef;
+        font-size: 19px;
+        font-weight: 500;
+        margin-bottom: 25px;
+    }
+
+
+    .featured-project-content p {
+        color: #e5edf5;
+        line-height: 1.8;
+    }
+
+
+.featured-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ffbd00;
+    color: #003b70;
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+
+.featured-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    padding-top: 25px;
+}
+
+
+    .featured-details > div {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+
+    .featured-details i {
+        color: #ffbd00;
+        font-size: 20px;
+        width: 25px;
+    }
+
+
+    .featured-details small {
+        display: block;
+        color: #aebfd0;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin-bottom: 3px;
+    }
+
+
+    .featured-details strong {
+        display: block;
+        color: #ffffff;
+        font-size: 14px;
+    }
+
+
+/* MOBILE */
+
+@media (max-width: 991px) {
+
+    .featured-project-image {
+        height: 380px;
+    }
+
+    .featured-project-content {
+        padding: 40px 30px;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .featured-project-image {
+        height: 280px;
+    }
+
+    .professional-project-image {
+        height: 230px;
+    }
+
+    .featured-project-content h2 {
+        font-size: 27px;
+    }
+}
+
+/* =========================================
+   CONTACT INFORMATION CARD
+   ========================================= */
+
+.contact-info-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #f4c400;
+}
+
+.contact-info-content {
+    text-align: center;
+}
+
+.contact-info-subtitle {
+    display: inline-block;
+    color: #f4c400;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.contact-info-content h2 {
+    color: #0b2341;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 430px;
+    margin: 0 auto 22px auto;
+}
+
+    .contact-info-item i {
+        width: 45px;
+        min-width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0b2341;
+        color: #f4c400;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .contact-info-item strong {
+        display: block;
+        color: #0b2341;
+        font-size: 15px;
+        margin-bottom: 3px;
+    }
+
+    .contact-info-item p {
+        margin: 0;
+        color: #555;
+        line-height: 1.7;
+    }
+
+    .contact-info-item a {
+        color: #0b2341;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .contact-info-item a:hover {
+            color: #f4c400;
+        }
+
+
+/* =========================================
+   CONTACT FORM
+   ========================================= */
+
+.contact-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 45px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+    .contact-card h2 {
+        color: #0b2341;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .contact-card .form-label {
+        color: #0b2341;
+        font-weight: 600;
+    }
+
+    .contact-card .form-control {
+        border: 1px solid #d9d9d9;
+        border-radius: 6px;
+        padding: 12px 15px;
+        min-height: 48px;
+    }
+
+    .contact-card textarea.form-control {
+        min-height: 160px;
+        resize: vertical;
+    }
+
+    .contact-card .form-control:focus {
+        border-color: #f4c400;
+        box-shadow: 0 0 0 0.2rem rgba(244, 196, 0, 0.15);
+    }
+
+.contact-button {
+    padding: 12px 30px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+}
+
+    .contact-button:hover {
+        transform: translateY(-1px);
+    }
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .contact-info-card,
+    .contact-card {
+        padding: 25px;
+    }
+
+        .contact-info-content h2,
+        .contact-card h2 {
+            font-size: 24px;
+        }
+
+    .contact-info-item {
+        max-width: 100%;
+    }
+}
+
+/* =========================================================
+   MCC GALLERY - LOCATION & GOOGLE MAP
+   ========================================================= */
+
+.location-section {
+    padding: 90px 0;
+    background: #f5f7fa;
+}
+
+
+/* LOCATION INFORMATION CARD */
+
+.location-info {
+    height: 100%;
+    min-height: 500px;
+    padding: 45px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+    /* MAIN LOCATION ICON */
+
+    .location-info > .location-icon {
+        width: 65px;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        background: #f5c400;
+        color: #0b2d4d;
+        border-radius: 50%;
+        font-size: 26px;
+    }
+
+
+    /* LOCATION HEADING */
+
+    .location-info h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #0b2d4d;
+        font-weight: 700;
+    }
+
+
+        .location-info h2 span {
+            color: #f5c400;
+        }
+
+
+/* INTRODUCTION */
+
+.location-intro {
+    margin-bottom: 30px;
+    color: #666;
+    line-height: 1.7;
+}
+
+
+/* LOCATION DETAILS */
+
+.location-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+
+.location-detail-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0b2d4d;
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+
+.location-detail h5 {
+    margin: 0 0 5px;
+    color: #0b2d4d;
+    font-weight: 700;
+}
+
+
+.location-detail p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+}
+
+
+.location-detail a {
+    color: #0b2d4d;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+    .location-detail a:hover {
+        color: #f5c400;
+    }
+
+
+/* GOOGLE MAP BUTTON */
+
+.location-button {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 10px;
+    padding: 13px 22px;
+    background: #f5c400;
+    color: #0b2d4d;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+
+    .location-button:hover {
+        background: #0b2d4d;
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+
+/* =========================================================
+   GOOGLE MAP
+   ========================================================= */
+
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    min-height: 500px;
+    overflow: hidden;
+    background: #dddddd;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+    .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 500px !important;
+        min-height: 500px;
+        border: 0;
+    }
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .location-section {
+        padding: 60px 0;
+    }
+
+    .location-info {
+        min-height: auto;
+        padding: 30px;
+    }
+
+    .map-container {
+        height: 400px;
+        min-height: 400px;
+    }
+
+        .map-container iframe {
+            height: 400px !important;
+            min-height: 400px;
+        }
+} 
