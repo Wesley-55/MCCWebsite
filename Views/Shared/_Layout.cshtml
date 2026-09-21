@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+
+    <title>@ViewData["Title"] - MCC Construction</title>
+
+    <!-- MCC Favicon -->
+    <link rel="icon"
+          type="image/png"
+          href="~/images/logos/Logo.png" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="~/css/site.css" />
+
+    <!-- Home / Website CSS -->
+    <link rel="stylesheet"
+          href="~/css/home.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet"
+          href="~/css/responsive.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+       TOP BAR
+       ===================================================== -->
+
+    <div class="top-bar">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <!-- TELEPHONE -->
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <a href="tel:0827846790">
+                        082 784 6790
+                    </a>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <!-- CELL -->
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    <a href="tel:0828196522">
+                        082 819 6522
+                    </a>
+
+                    &nbsp;&nbsp;&nbsp;
+
+                    <!-- EMAIL -->
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <a href="mailto:denise@mcc-construction.co.za">
+                        denise@mcc-construction.co.za
+                    </a>
+
+                </div>
+
+
+              
+
+               
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN NAVIGATION
+         ===================================================== -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container">
+
+
+            <!-- LOGO -->
+
+            <a class="navbar-brand d-flex align-items-center"
+               asp-controller="Home"
+               asp-action="Index">
+
+                <img src="~/images/logos/Logo.png"
+                     alt="MCC Construction"
+                     height="55"
+                     class="me-3" />
+
+                <div class="logo-text">
+
+                    <span class="company-name">
+                        MCC Construction
+                    </span>
+
+                    <small class="company-tagline">
+                        Building Excellence
+                    </small>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbar"
+                    aria-controls="navbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+
+            <!-- NAVIGATION -->
+
+            <div class="collapse navbar-collapse"
+                 id="navbar">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                    <!-- HOME -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Index">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- ABOUT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="About">
+
+                            About
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- SERVICES -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Services">
+
+                            Services
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- PROJECTS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Projects">
+
+                            Projects
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- GALLERY -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Home"
+                           asp-action="Gallery">
+
+                            Gallery
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- CONTACT -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           asp-controller="Contact"
+                           asp-action="Index">
+
+                            Contact
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- REQUEST QUOTE -->
+
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                        <a class="btn btn-warning"
+                           asp-controller="Quote"
+                           asp-action="Index">
+
+                            Request Quote
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+         ===================================================== -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="row">
+
+
+                <!-- COMPANY -->
+
+                <div class="col-lg-4 mb-4">
+
+                    <h3>
+                        MCC Construction
+                    </h3>
+
+                    <p>
+                        Building South Africa through
+                        quality construction and engineering
+                        excellence.
+                    </p>
+
+                </div>
+
+
+
+                <!-- QUICK LINKS -->
+
+                <div class="col-lg-4 mb-4">
+
+                    <h3>
+                        Quick Links
+                    </h3>
+
+
+                    <ul class="footer-links">
+
+
+                        <!-- HOME -->
+
+                        <li>
+
+                            <a asp-controller="Home"
+                               asp-action="Index">
+
+                                Home
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- ABOUT -->
+
+                        <li>
+
+                            <a asp-controller="Home"
+                               asp-action="About">
+
+                                About
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- SERVICES -->
+
+                        <li>
+
+                            <a asp-controller="Home"
+                               asp-action="Services">
+
+                                Services
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- PROJECTS -->
+
+                        <li>
+
+                            <a asp-controller="Home"
+                               asp-action="Projects">
+
+                                Projects
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- GALLERY -->
+
+                        <li>
+
+                            <a asp-controller="Home"
+                               asp-action="Gallery">
+
+                                Gallery
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- CONTACT -->
+
+                        <li>
+
+                            <a asp-controller="Contact"
+                               asp-action="Index">
+
+                                Contact
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- REQUEST QUOTE -->
+
+                        <li>
+
+                            <a asp-controller="Quote"
+                               asp-action="Index">
+
+                                Request Quote
+
+                            </a>
+
+                        </li>
+
+
+
+                        <!-- =================================================
+                             ADMIN LOGIN
+                             ONLY ONE ADMIN LOGIN LINK
+                             ================================================= -->
+
+                        <li class="admin-login-link">
+
+                            <a asp-controller="Admin"
+                               asp-action="Login">
+
+                                <i class="fa-solid fa-lock me-1"></i>
+
+                                Admin Login
+
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+
+
+                <!-- CONTACT -->
+
+                <div class="col-lg-4 mb-4">
+
+                    <h3>
+                        Contact
+                    </h3>
+
+                    <p>
+                        <strong>Durban — Head Office</strong>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot me-2"></i>
+                        56 Newport Avenue<br />
+                        <span class="ms-4">Glen Ashley</span><br />
+                        <span class="ms-4">Durban North</span><br />
+                        <span class="ms-4">4051</span>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-phone me-2"></i>
+                        <strong>Tel:</strong>
+                        <a href="tel:0827846790">
+                            082 784 6790
+                        </a>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-mobile-screen-button me-2"></i>
+                        <strong>Cell:</strong>
+                        <a href="tel:0828196522">
+                            082 819 6522
+                        </a>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-envelope me-2"></i>
+                        <a href="mailto:john@mcc-construction.co.za">
+                            john@mcc-construction.co.za
+                        </a>
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-envelope me-2"></i>
+                        <a href="mailto:ronald@melmothcartage.co.za">
+                            ronald@melmothcartage.co.za
+                        </a>
+                    </p>
+
+                </div>
+
+
+
+            <!-- DIVIDER -->
+
+            <hr />
+
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="text-center">
+
+                © @DateTime.Now.Year
+                MCC Construction.
+                All Rights Reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         SCRIPTS
+         ===================================================== -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+
+</html>
