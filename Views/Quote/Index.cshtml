@@ -1,0 +1,317 @@
+﻿@model MCCConstruction.Models.QuoteRequest
+
+@{
+    ViewData["Title"] = "Request a Quote";
+}
+
+<section class="quote-page">
+
+    <div class="container">
+
+        <div class="quote-header text-center">
+
+            <span class="quote-subtitle">
+                MCC CONSTRUCTION
+            </span>
+
+            <h1>
+                Request a <span>Quote</span>
+            </h1>
+
+            <p>
+                Tell us about your project and our team will
+                review your requirements and get back to you.
+            </p>
+
+        </div>
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success mb-4">
+
+                <i class="fa-solid fa-circle-check me-2"></i>
+
+                @TempData["SuccessMessage"]
+
+            </div>
+        }
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-9">
+
+                <div class="quote-card">
+
+                    <form asp-controller="Quote"
+                          asp-action="Index"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-4">
+                        </div>
+
+
+                        <!-- CONTACT DETAILS -->
+
+                        <div class="form-section">
+
+                            <h3>Contact Details</h3>
+
+                            <p class="section-description">
+                                Tell us who we will be working with.
+                            </p>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="CompanyName"
+                                           class="form-label">
+                                        Company Name *
+                                    </label>
+
+                                    <input asp-for="CompanyName"
+                                           class="form-control"
+                                           placeholder="Company name" />
+
+                                    <span asp-validation-for="CompanyName"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="ContactPerson"
+                                           class="form-label">
+                                        Contact Person *
+                                    </label>
+
+                                    <input asp-for="ContactPerson"
+                                           class="form-control"
+                                           placeholder="Full name" />
+
+                                    <span asp-validation-for="ContactPerson"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="Email"
+                                           class="form-label">
+                                        Email *
+                                    </label>
+
+                                    <input asp-for="Email"
+                                           class="form-control"
+                                           placeholder="name@company.com" />
+
+                                    <span asp-validation-for="Email"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="Phone"
+                                           class="form-label">
+                                        Phone *
+                                    </label>
+
+                                    <input asp-for="Phone"
+                                           class="form-control"
+                                           placeholder="+27 XX XXX XXXX" />
+
+                                    <span asp-validation-for="Phone"
+                                          class="text-danger">
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PROJECT DETAILS -->
+
+                        <div class="form-section">
+
+                            <h3>Project Details</h3>
+
+                            <p class="section-description">
+                                Give us some information about the
+                                project you would like us to quote on.
+                            </p>
+
+
+                            <div class="mb-3">
+
+                                <label asp-for="ProjectAddress"
+                                       class="form-label">
+                                    Project Address
+                                </label>
+
+                                <input asp-for="ProjectAddress"
+                                       class="form-control"
+                                       placeholder="Project location" />
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="ServiceRequired"
+                                           class="form-label">
+                                        Service Required
+                                    </label>
+
+                                    <select asp-for="ServiceRequired"
+                                            class="form-select">
+
+                                        <option value="">
+                                            Select a service
+                                        </option>
+
+                                        <option>
+                                            General Construction
+                                        </option>
+
+                                        <option>
+                                            Civil Engineering
+                                        </option>
+
+                                        <option>
+                                            Commercial Construction
+                                        </option>
+
+                                        <option>
+                                            Residential Construction
+                                        </option>
+
+                                        <option>
+                                            Infrastructure
+                                        </option>
+
+                                        <option>
+                                            Project Management
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="Budget"
+                                           class="form-label">
+                                        Estimated Budget (R)
+                                    </label>
+
+                                    <input asp-for="Budget"
+                                           type="number"
+                                           step="0.01"
+                                           class="form-control"
+                                           placeholder="e.g. 500000" />
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label asp-for="ExpectedStartDate"
+                                           class="form-label">
+                                        Expected Start Date
+                                    </label>
+
+                                    <input asp-for="ExpectedStartDate"
+                                           type="date"
+                                           class="form-control" />
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label asp-for="Description"
+                                       class="form-label">
+                                    Project Description
+                                </label>
+
+                                <textarea asp-for="Description"
+                                          class="form-control"
+                                          rows="7"
+                                          placeholder="Describe your project, requirements, approximate scope and any other relevant information..."></textarea>
+
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Supporting Document
+                                </label>
+
+                                <input type="file"
+                                       name="attachment"
+                                       class="form-control"
+                                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+
+                                <small class="text-muted">
+                                    PDF, Word, JPG or PNG. Maximum 10 MB.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quote-submit">
+
+                            <button type="submit"
+                                    class="btn btn-warning quote-button">
+
+                                Submit Quote Request
+
+                                <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
