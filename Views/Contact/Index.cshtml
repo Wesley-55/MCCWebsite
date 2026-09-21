@@ -1,0 +1,287 @@
+﻿@model MCCConstruction.Models.ContactMessage
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<section class="contact-page">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="text-center contact-header">
+
+            <span class="contact-subtitle">
+                GET IN TOUCH
+            </span>
+
+            <h1>
+                Contact MCC Construction
+            </h1>
+
+            <p>
+                Have a question about our services or a project?
+                Send us a message and our team will get back to you.
+            </p>
+
+        </div>
+
+
+        <!-- SUCCESS MESSAGE -->
+        @if (TempData["ContactSuccess"] != null)
+        {
+            <div class="alert alert-success text-center">
+
+                <i class="fa-solid fa-circle-check me-2"></i>
+
+                @TempData["ContactSuccess"]
+
+            </div>
+        }
+
+
+        <!-- CONTACT INFORMATION -->
+        <div class="row justify-content-center mb-5">
+
+            <div class="col-lg-8">
+
+                <div class="contact-info-card">
+
+                    <div class="contact-info-content">
+
+                        <span class="contact-info-subtitle">
+                            OUR OFFICE
+                        </span>
+
+                        <h2>
+                            Durban — Head Office
+                        </h2>
+
+                        <div class="contact-info-item">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <div>
+                                <strong>Address</strong>
+
+                                <p>
+                                    56 Newport Avenue<br />
+                                    Glen Ashley<br />
+                                    Durban North<br />
+                                    4051
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-info-item">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <div>
+                                <strong>Tel</strong>
+
+                                <p>
+                                    <a href="tel:0827846790">
+                                        082 784 6790
+                                    </a>
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-info-item">
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                            <div>
+                                <strong>Cell</strong>
+
+                                <p>
+                                    <a href="tel:0828196522">
+                                        082 819 6522
+                                    </a>
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM -->
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <div class="contact-card">
+
+                    <div class="text-center mb-4">
+
+                        <span class="contact-info-subtitle">
+                            SEND US A MESSAGE
+                        </span>
+
+                        <h2>
+                            How Can We Help?
+                        </h2>
+
+                    </div>
+
+
+                    <form asp-action="Index"
+                          asp-controller="Contact"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+
+                        <div class="row">
+
+                            <!-- NAME -->
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="Name"
+                                       class="form-label">
+                                    Name *
+                                </label>
+
+                                <input asp-for="Name"
+                                       class="form-control"
+                                       placeholder="Your full name" />
+
+                                <span asp-validation-for="Name"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- COMPANY -->
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="Company"
+                                       class="form-label">
+                                    Company
+                                </label>
+
+                                <input asp-for="Company"
+                                       class="form-control"
+                                       placeholder="Company name" />
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="Email"
+                                       class="form-label">
+                                    Email *
+                                </label>
+
+                                <input asp-for="Email"
+                                       type="email"
+                                       class="form-control"
+                                       placeholder="you@company.co.za" />
+
+                                <span asp-validation-for="Email"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="Phone"
+                                       class="form-label">
+                                    Phone
+                                </label>
+
+                                <input asp-for="Phone"
+                                       class="form-control"
+                                       placeholder="Your phone number" />
+
+                            </div>
+
+
+                            <!-- SUBJECT -->
+                            <div class="col-12 mb-4">
+
+                                <label asp-for="Subject"
+                                       class="form-label">
+                                    Subject
+                                </label>
+
+                                <input asp-for="Subject"
+                                       class="form-control"
+                                       placeholder="What can we help you with?" />
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+                            <div class="col-12 mb-4">
+
+                                <label asp-for="Message"
+                                       class="form-label">
+                                    Message *
+                                </label>
+
+                                <textarea asp-for="Message"
+                                          class="form-control"
+                                          rows="7"
+                                          placeholder="Enter your message here..."></textarea>
+
+                                <span asp-validation-for="Message"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SUBMIT BUTTON -->
+                        <div class="text-center">
+
+                            <button type="submit"
+                                    class="btn btn-warning contact-button">
+
+                                Send Message
+
+                                <i class="fa-solid fa-paper-plane ms-2"></i>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
