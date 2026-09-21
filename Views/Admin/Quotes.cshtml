@@ -1,0 +1,137 @@
+﻿@model List<MCCConstruction.Models.QuoteRequest>
+
+@{
+    ViewData["Title"] = "Quote Requests";
+}
+
+<section class="admin-dashboard">
+
+    <div class="container">
+
+        <div class="admin-header">
+
+            <div>
+
+                <span class="admin-subtitle">
+                    MCC CONSTRUCTION
+                </span>
+
+                <h1>
+                    Quote Requests
+                </h1>
+
+                <p>
+                    All quote requests submitted through the website.
+                </p>
+
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-primary">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+
+        <div class="admin-table-card">
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Service</th>
+                            <th>Budget</th>
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            foreach (var quote in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @quote.CompanyName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @quote.ContactPerson
+                                    </td>
+
+                                    <td>
+                                        @quote.Email
+                                    </td>
+
+                                    <td>
+                                        @quote.Phone
+                                    </td>
+
+                                    <td>
+                                        @quote.ServiceRequired
+                                    </td>
+
+                                    <td>
+                                        @(quote.Budget.HasValue
+                                                                        ? "R " + quote.Budget.Value.ToString("N2")
+                                                                        : "Not specified")
+                            </td>
+
+                                    <td>
+                                        @quote.DateSubmitted.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status-badge">
+                                            @quote.Status
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+                                                }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="8"
+                                    class="text-center py-5">
+
+                                    No quote requests found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,130 @@
+﻿@model List<MCCConstruction.Models.ContactMessage>
+
+@{
+    ViewData["Title"] = "Contact Messages";
+}
+
+<section class="admin-dashboard">
+
+    <div class="container">
+
+        <div class="admin-header">
+
+            <div>
+
+                <span class="admin-subtitle">
+                    MCC CONSTRUCTION
+                </span>
+
+                <h1>
+                    Contact Messages
+                </h1>
+
+                <p>
+                    Messages submitted through the MCC website.
+                </p>
+
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-outline-primary">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+
+        <div class="admin-table-card">
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Subject</th>
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            foreach (var message in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @message.Name
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @message.Company
+                                    </td>
+
+                                    <td>
+                                        @message.Email
+                                    </td>
+
+                                    <td>
+                                        @message.Phone
+                                    </td>
+
+                                    <td>
+                                        @message.Subject
+                                    </td>
+
+                                    <td>
+                                        @message.DateSent.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status-badge">
+                                            @message.Status
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="7"
+                                    class="text-center py-5">
+
+                                    No messages found.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

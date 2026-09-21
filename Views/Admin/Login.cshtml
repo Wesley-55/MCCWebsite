@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<section class="admin-login">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-5 col-lg-4">
+
+                <div class="admin-login-card text-center">
+
+                    <img src="~/images/logos/Logo.png"
+                         alt="MCC Construction"
+                         class="admin-logo" />
+
+                    <h1>
+                        Admin Login
+                    </h1>
+
+                    <p>
+                        Sign in to manage website enquiries
+                        and quote requests.
+                    </p>
+
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Error
+                        </div>
+                    }
+
+
+                    <form asp-controller="Admin"
+                          asp-action="Login"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+
+                        <div class="mb-3 text-start">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input type="text"
+                                   name="username"
+                                   class="form-control"
+                                   autocomplete="username"
+                                   required />
+
+                        </div>
+
+
+                        <div class="mb-4 text-start">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   autocomplete="current-password"
+                                   required />
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-warning w-100 admin-login-button">
+
+                            Login
+
+                            <i class="fa-solid fa-arrow-right ms-2"></i>
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="mt-4">
+
+                        <a asp-controller="Home"
+                           asp-action="Index"
+                           class="text-muted text-decoration-none">
+
+                            ← Back to website
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

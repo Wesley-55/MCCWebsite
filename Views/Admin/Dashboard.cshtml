@@ -1,0 +1,392 @@
+﻿@using MCCConstruction.Models
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+
+    var contacts =
+        ViewBag.Contacts as List<ContactMessage>
+        ?? new List<ContactMessage>();
+
+    var quotes =
+        ViewBag.Quotes as List<QuoteRequest>
+        ?? new List<QuoteRequest>();
+}
+
+<section class="admin-dashboard">
+
+    <div class="container">
+
+        <div class="admin-header">
+
+            <div>
+
+                <span class="admin-subtitle">
+                    MCC CONSTRUCTION
+                </span>
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Manage enquiries and quote requests.
+                </p>
+
+            </div>
+
+            <div>
+
+                <a asp-controller="Admin"
+                   asp-action="Logout"
+                   class="btn btn-outline-danger">
+
+                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <h2>
+                        @ViewBag.ContactCount
+                    </h2>
+
+                    <p>
+                        Contact Messages
+                    </p>
+
+                    <span>
+                        @ViewBag.NewContactCount new
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+
+                    <h2>
+                        @ViewBag.QuoteCount
+                    </h2>
+
+                    <p>
+                        Quote Requests
+                    </p>
+
+                    <span>
+                        @ViewBag.NewQuoteCount new
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT MESSAGES -->
+
+        <div class="admin-table-card mb-5">
+
+            <div class="admin-table-header">
+
+                <div>
+
+                    <h3>
+                        Recent Contact Messages
+                    </h3>
+
+                    <p>
+                        Latest enquiries submitted through the website.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (contacts.Count == 0)
+                        {
+                            <tr>
+
+                                <td colspan="6"
+                                    class="text-center py-4">
+
+                                    No contact messages yet.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var contact in contacts)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @contact.Name
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @contact.Email
+                                    </td>
+
+                                    <td>
+                                        @contact.Subject
+                                    </td>
+
+                                    <td>
+                                        @contact.DateSent.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+
+                                        <span class="status-badge">
+                                            @contact.Status
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <form asp-controller="Admin"
+                                              asp-action="UpdateContactStatus"
+                                              method="post">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@contact.Id" />
+
+                                            <select name="status"
+                                                    class="form-select form-select-sm"
+                                                    onchange="this.form.submit()">
+
+                                                <option selected="@(contact.Status == "New")">
+                                                    New
+                                                </option>
+
+                                                <option selected="@(contact.Status == "Read")">
+                                                    Read
+                                                </option>
+
+                                                <option selected="@(contact.Status == "Replied")">
+                                                    Replied
+                                                </option>
+
+                                                <option selected="@(contact.Status == "Closed")">
+                                                    Closed
+                                                </option>
+
+                                            </select>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUOTE REQUESTS -->
+
+        <div class="admin-table-card">
+
+            <div class="admin-table-header">
+
+                <div>
+
+                    <h3>
+                        Recent Quote Requests
+                    </h3>
+
+                    <p>
+                        Latest project quote requests.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Service</th>
+                            <th>Budget</th>
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (quotes.Count == 0)
+                        {
+                            <tr>
+
+                                <td colspan="6"
+                                    class="text-center py-4">
+
+                                    No quote requests yet.
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var quote in quotes)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            @quote.CompanyName
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @quote.ContactPerson
+                                    </td>
+
+                                    <td>
+                                        @quote.ServiceRequired
+                                    </td>
+
+                                    <td>
+                                        @if (quote.Budget.HasValue)
+                                        {
+                                            @quote.Budget.Value.ToString("C")
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                Not specified
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @quote.DateSubmitted.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+
+                                        <form asp-controller="Admin"
+                                              asp-action="UpdateQuoteStatus"
+                                              method="post">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@quote.Id" />
+
+                                            <select name="status"
+                                                    class="form-select form-select-sm"
+                                                    onchange="this.form.submit()">
+
+                                                <option selected="@(quote.Status == "New")">
+                                                    New
+                                                </option>
+
+                                                <option selected="@(quote.Status == "Reviewed")">
+                                                    Reviewed
+                                                </option>
+
+                                                <option selected="@(quote.Status == "Quoted")">
+                                                    Quoted
+                                                </option>
+
+                                                <option selected="@(quote.Status == "Closed")">
+                                                    Closed
+                                                </option>
+
+                                            </select>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
