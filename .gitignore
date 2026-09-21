@@ -1,0 +1,24 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.rsuser
+*.csproj.user
+
+# Build output
+bin/
+obj/
+
+# Logs
+*.log
+
+# Local database files
+*.mdf
+*.ldf
+*.db
+
+# Development configuration
+appsettings.Development.json
+
+# Uploaded files
+wwwroot/uploads/
