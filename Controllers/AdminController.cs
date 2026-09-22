@@ -21,10 +21,16 @@ namespace MccConstruction.Controllers
             _configuration = configuration;
         }
 
+        // ------------------------------------------------------------
+        // ADMIN LOGIN
+        // ------------------------------------------------------------
+
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
-            if (User.Identity?.IsAuthenticated == true)
+            if (User.Identity?.IsAuthenticated == true &&
+                User.IsInRole("Administrator"))
             {
                 return RedirectToAction(nameof(Dashboard));
             }
@@ -32,21 +38,34 @@ namespace MccConstruction.Controllers
             return View();
         }
 
-
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(
             string username,
             string password)
         {
+            if (string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Invalid username or password.";
+                return View();
+            }
+
             var configuredUsername =
                 _configuration["AdminSettings:Username"];
 
             var configuredPassword =
                 _configuration["AdminSettings:Password"];
 
-            if (username == configuredUsername &&
-                password == configuredPassword)
+            if (string.Equals(
+                    username,
+                    configuredUsername,
+                    StringComparison.Ordinal) &&
+                string.Equals(
+                    password,
+                    configuredPassword,
+                    StringComparison.Ordinal))
             {
                 var claims = new List<Claim>
                 {
@@ -59,13 +78,11 @@ namespace MccConstruction.Controllers
                         "Administrator")
                 };
 
-                var identity =
-                    new ClaimsIdentity(
-                        claims,
-                        CookieAuthenticationDefaults.AuthenticationScheme);
+                var identity = new ClaimsIdentity(
+                    claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme);
 
-                var principal =
-                    new ClaimsPrincipal(identity);
+                var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -74,14 +91,18 @@ namespace MccConstruction.Controllers
                 return RedirectToAction(nameof(Dashboard));
             }
 
-            ViewBag.Error =
-                "Invalid username or password.";
+            // Don't reveal whether the username or password was incorrect.
+            ViewBag.Error = "Invalid username or password.";
 
             return View();
         }
 
+        // ------------------------------------------------------------
+        // ADMIN DASHBOARD
+        // ------------------------------------------------------------
 
         [Authorize(Roles = "Administrator")]
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             ViewBag.ContactCount =
@@ -98,16 +119,16 @@ namespace MccConstruction.Controllers
                 await _context.QuoteRequests
                     .CountAsync(x => x.Status == "New");
 
+            // Get ALL contact messages
             var contacts =
                 await _context.ContactMessages
                     .OrderByDescending(x => x.DateSent)
-                    .Take(10)
                     .ToListAsync();
 
+            // Get ALL quote requests
             var quotes =
                 await _context.QuoteRequests
                     .OrderByDescending(x => x.DateSubmitted)
-                    .Take(10)
                     .ToListAsync();
 
             ViewBag.Contacts = contacts;
@@ -116,14 +137,29 @@ namespace MccConstruction.Controllers
             return View();
         }
 
+        // ------------------------------------------------------------
+        // CONTACT STATUS
+        // ------------------------------------------------------------
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateContactStatus(
-            int id,
-            string status)
+    int id,
+    string status)
         {
+            var allowedStatuses = new[]
+            {
+        "New",
+        "Read",
+        "Resolved"
+    };
+
+            if (!allowedStatuses.Contains(status))
+            {
+                return BadRequest("Invalid status.");
+            }
+
             var message =
                 await _context.ContactMessages
                     .FindAsync(id);
@@ -138,14 +174,30 @@ namespace MccConstruction.Controllers
             return RedirectToAction(nameof(Dashboard));
         }
 
+        // ------------------------------------------------------------
+        // QUOTE STATUS
+        // ------------------------------------------------------------
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateQuoteStatus(
-            int id,
-            string status)
+    int id,
+    string status)
         {
+            var allowedStatuses = new[]
+            {
+        "New",
+        "Read",
+        "Quoted",
+        "Closed"
+    };
+
+            if (!allowedStatuses.Contains(status))
+            {
+                return BadRequest("Invalid status.");
+            }
+
             var quote =
                 await _context.QuoteRequests
                     .FindAsync(id);
@@ -161,7 +213,13 @@ namespace MccConstruction.Controllers
         }
 
 
+        // ------------------------------------------------------------
+        // LOGOUT
+        // ------------------------------------------------------------
+
         [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(
@@ -170,27 +228,47 @@ namespace MccConstruction.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+        // ------------------------------------------------------------
+        // QUOTE REQUESTS
+        // ------------------------------------------------------------
+
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> QuoteRequests()
         {
-            var quoteRequests = await _context.QuoteRequests
-                .OrderByDescending(x => x.DateSubmitted)
-                .ToListAsync();
+            var quoteRequests =
+                await _context.QuoteRequests
+                    .OrderByDescending(x => x.DateSubmitted)
+                    .ToListAsync();
 
             return View(quoteRequests);
         }
 
+        // ------------------------------------------------------------
+        // CONTACT MESSAGES
+        // ------------------------------------------------------------
 
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> ContactMessages()
         {
-            var contactMessages = await _context.ContactMessages
-                .OrderByDescending(x => x.DateSent)
-                .ToListAsync();
+            var contactMessages =
+                await _context.ContactMessages
+                    .OrderByDescending(x => x.DateSent)
+                    .ToListAsync();
 
             return View(contactMessages);
+        }
+
+        // ------------------------------------------------------------
+        // ACCESS DENIED
+        // ------------------------------------------------------------
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

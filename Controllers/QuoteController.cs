@@ -2,7 +2,7 @@
 using MCCConstruction.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MccConstruction.Controllers
+namespace MCCConstruction.Controllers
 {
     public class QuoteController : Controller
     {
@@ -31,10 +31,16 @@ namespace MccConstruction.Controllers
             QuoteRequest quoteRequest,
             IFormFile? attachment)
         {
-            // Validate the uploaded file before saving anything
+            // ==========================================
+            // VALIDATE ATTACHMENT
+            // ==========================================
+
             if (attachment != null && attachment.Length > 0)
             {
-                var allowedExtensions = new[]
+                const long maximumFileSize = 10 * 1024 * 1024;
+
+                var allowedExtensions = new HashSet<string>(
+                    StringComparer.OrdinalIgnoreCase)
                 {
                     ".pdf",
                     ".doc",
@@ -48,7 +54,9 @@ namespace MccConstruction.Controllers
                     .GetExtension(attachment.FileName)
                     .ToLowerInvariant();
 
-                if (!allowedExtensions.Contains(extension))
+                // Validate extension
+                if (string.IsNullOrWhiteSpace(extension) ||
+                    !allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError(
                         "AttachmentPath",
@@ -57,8 +65,8 @@ namespace MccConstruction.Controllers
                     return View(quoteRequest);
                 }
 
-                // Maximum 10 MB
-                if (attachment.Length > 10 * 1024 * 1024)
+                // Validate file size
+                if (attachment.Length > maximumFileSize)
                 {
                     ModelState.AddModelError(
                         "AttachmentPath",
@@ -66,9 +74,22 @@ namespace MccConstruction.Controllers
 
                     return View(quoteRequest);
                 }
+
+                // Validate that the file has a filename
+                if (string.IsNullOrWhiteSpace(attachment.FileName))
+                {
+                    ModelState.AddModelError(
+                        "AttachmentPath",
+                        "The selected file is invalid.");
+
+                    return View(quoteRequest);
+                }
             }
 
-            // Stop if the form itself is invalid
+            // ==========================================
+            // VALIDATE FORM
+            // ==========================================
+
             if (!ModelState.IsValid)
             {
                 return View(quoteRequest);
@@ -95,7 +116,8 @@ namespace MccConstruction.Controllers
 
                     Directory.CreateDirectory(uploadFolder);
 
-                    // Generate a safe unique filename
+                    // Never use the original filename.
+                    // Generate a unique server-side filename instead.
                     var safeFileName =
                         $"{Guid.NewGuid():N}{extension}";
 
@@ -105,7 +127,9 @@ namespace MccConstruction.Controllers
 
                     await using (var stream = new FileStream(
                         savedFilePath,
-                        FileMode.CreateNew))
+                        FileMode.CreateNew,
+                        FileAccess.Write,
+                        FileShare.None))
                     {
                         await attachment.CopyToAsync(stream);
                     }
@@ -126,7 +150,7 @@ namespace MccConstruction.Controllers
                 quoteRequest.Status = "New";
 
                 // ==========================================
-                // SAVE TO DATABASE
+                // SAVE DATABASE RECORD
                 // ==========================================
 
                 _context.QuoteRequests.Add(quoteRequest);
@@ -145,7 +169,8 @@ namespace MccConstruction.Controllers
             }
             catch
             {
-                // Delete uploaded file if database saving fails
+                // If the database operation fails after the
+                // file was uploaded, remove the orphaned file.
                 if (savedFilePath != null &&
                     System.IO.File.Exists(savedFilePath))
                 {

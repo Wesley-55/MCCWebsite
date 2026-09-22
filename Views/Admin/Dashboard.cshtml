@@ -16,10 +16,10 @@
 
     <div class="container">
 
+        <!-- HEADER -->
         <div class="admin-header">
 
             <div>
-
                 <span class="admin-subtitle">
                     MCC CONSTRUCTION
                 </span>
@@ -31,28 +31,32 @@
                 <p>
                     Manage enquiries and quote requests.
                 </p>
-
             </div>
 
             <div>
+                <form asp-controller="Admin"
+                      asp-action="Logout"
+                      method="post"
+                      class="d-inline">
 
-                <a asp-controller="Admin"
-                   asp-action="Logout"
-                   class="btn btn-outline-danger">
+                    @Html.AntiForgeryToken()
 
-                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                    <button type="submit"
+                            class="btn btn-outline-danger">
 
-                    Logout
+                        <i class="fa-solid fa-right-from-bracket me-2"></i>
 
-                </a>
+                        Logout
 
+                    </button>
+
+                </form>
             </div>
 
         </div>
 
 
         <!-- STATISTICS -->
-
         <div class="row g-4 mb-5">
 
             <div class="col-lg-3 col-md-6">
@@ -107,7 +111,9 @@
         </div>
 
 
-        <!-- CONTACT MESSAGES -->
+        <!-- =====================================================
+             CONTACT MESSAGES
+             ===================================================== -->
 
         <div class="admin-table-card mb-5">
 
@@ -116,11 +122,11 @@
                 <div>
 
                     <h3>
-                        Recent Contact Messages
+                        Contact Messages
                     </h3>
 
                     <p>
-                        Latest enquiries submitted through the website.
+                        All enquiries submitted through the website.
                     </p>
 
                 </div>
@@ -128,24 +134,28 @@
             </div>
 
 
-            <div class="table-responsive">
+            <div class="table-responsive admin-table-scroll">
 
-                <table class="table align-middle">
+                <table class="table align-middle admin-messages-table">
 
                     <thead>
 
                         <tr>
 
                             <th>Name</th>
+                            <th>Company</th>
                             <th>Email</th>
+                            <th>Phone</th>
                             <th>Subject</th>
+                            <th class="message-column">Message</th>
                             <th>Date</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th class="action-column">Action</th>
 
                         </tr>
 
                     </thead>
+
 
                     <tbody>
 
@@ -153,7 +163,7 @@
                         {
                             <tr>
 
-                                <td colspan="6"
+                                <td colspan="9"
                                     class="text-center py-4">
 
                                     No contact messages yet.
@@ -168,24 +178,78 @@
                             {
                                 <tr>
 
+                                    <!-- NAME -->
                                     <td>
+
                                         <strong>
                                             @contact.Name
                                         </strong>
+
                                     </td>
 
+
+                                    <!-- COMPANY -->
                                     <td>
-                                        @contact.Email
+
+                                        @(string.IsNullOrWhiteSpace(contact.Company)
+                                                                        ? "Not provided"
+                                                                        : contact.Company)
+
                                     </td>
 
+
+                                    <!-- EMAIL -->
                                     <td>
-                                        @contact.Subject
+
+                                        <a href="mailto:@contact.Email">
+                                            @contact.Email
+                                        </a>
+
                                     </td>
 
+
+                                    <!-- PHONE -->
                                     <td>
-                                        @contact.DateSent.ToString("dd MMM yyyy")
+
+                                        @(string.IsNullOrWhiteSpace(contact.Phone)
+                                                                        ? "Not provided"
+                                                                        : contact.Phone)
+
                                     </td>
 
+
+                                    <!-- SUBJECT -->
+                                    <td>
+
+                                        @(string.IsNullOrWhiteSpace(contact.Subject)
+                                                                        ? "No subject"
+                                                                        : contact.Subject)
+
+                            </td>
+
+
+                                                                    <!-- CUSTOMER MESSAGE -->
+                                                                    <td class="message-column">
+
+                                                                        <div class="admin-message-text">
+
+                                                                            @contact.Message
+
+                                                                        </div>
+
+                                                                    </td>
+
+
+                                                                    <!-- DATE -->
+                                                                    <td>
+
+                                                                        @contact.DateSent.ToString(
+                                                                        "dd MMM yyyy HH:mm")
+
+                            </td>
+
+
+                                    <!-- CURRENT STATUS -->
                                     <td>
 
                                         <span class="status-badge">
@@ -194,46 +258,52 @@
 
                                     </td>
 
-                                    <td>
 
-                                        <form asp-controller="Admin"
-                                              asp-action="UpdateContactStatus"
-                                              method="post">
+                                    <!-- ACTION -->
+                                    <td class="action-column">
 
-                                            @Html.AntiForgeryToken()
+                                        <div class="admin-action-wrapper">
 
-                                            <input type="hidden"
-                                                   name="id"
-                                                   value="@contact.Id" />
+                                            <form asp-controller="Admin"
+                                                  asp-action="UpdateContactStatus"
+                                                  method="post"
+                                                  class="admin-action-form">
 
-                                            <select name="status"
-                                                    class="form-select form-select-sm"
-                                                    onchange="this.form.submit()">
+                                                @Html.AntiForgeryToken()
 
-                                                <option selected="@(contact.Status == "New")">
-                                                    New
-                                                </option>
+                                                <input type="hidden"
+                                                       name="id"
+                                                       value="@contact.Id" />
 
-                                                <option selected="@(contact.Status == "Read")">
-                                                    Read
-                                                </option>
+                                                <select name="status"
+                                                        class="admin-action-select"
+                                                        onchange="this.form.submit()">
 
-                                                <option selected="@(contact.Status == "Replied")">
-                                                    Replied
-                                                </option>
+                                                    <option value="New"
+                                                            selected="@(contact.Status == "New")">
+                                                        New
+                                                    </option>
 
-                                                <option selected="@(contact.Status == "Closed")">
-                                                    Closed
-                                                </option>
+                                                    <option value="Read"
+                                                            selected="@(contact.Status == "Read")">
+                                                        Read
+                                                    </option>
 
-                                            </select>
+                                                    <option value="Resolved"
+                                                            selected="@(contact.Status == "Resolved")">
+                                                        Resolved
+                                                    </option>
 
-                                        </form>
+                                                </select>
+
+                                            </form>
+
+                                        </div>
 
                                     </td>
 
                                 </tr>
-                            }
+                                                }
                         }
 
                     </tbody>
@@ -245,7 +315,9 @@
         </div>
 
 
-        <!-- QUOTE REQUESTS -->
+        <!-- =====================================================
+             QUOTE REQUESTS
+             ===================================================== -->
 
         <div class="admin-table-card">
 
@@ -254,11 +326,11 @@
                 <div>
 
                     <h3>
-                        Recent Quote Requests
+                        Quote Requests
                     </h3>
 
                     <p>
-                        Latest project quote requests.
+                        All quote requests submitted through the website.
                     </p>
 
                 </div>
@@ -266,24 +338,31 @@
             </div>
 
 
-            <div class="table-responsive">
+            <div class="table-responsive admin-table-scroll">
 
-                <table class="table align-middle">
+                <table class="table align-middle admin-quotes-table">
 
                     <thead>
 
                         <tr>
 
                             <th>Company</th>
-                            <th>Contact</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Project Address</th>
                             <th>Service</th>
                             <th>Budget</th>
+                            <th>Start Date</th>
+                            <th class="description-column">Description</th>
+                            <th>Attachment</th>
                             <th>Date</th>
-                            <th>Status</th>
+                            <th class="action-column">Action</th>
 
                         </tr>
 
                     </thead>
+
 
                     <tbody>
 
@@ -291,7 +370,7 @@
                         {
                             <tr>
 
-                                <td colspan="6"
+                                <td colspan="12"
                                     class="text-center py-4">
 
                                     No quote requests yet.
@@ -306,22 +385,66 @@
                             {
                                 <tr>
 
+                                    <!-- COMPANY -->
                                     <td>
+
                                         <strong>
                                             @quote.CompanyName
                                         </strong>
+
                                     </td>
 
+
+                                    <!-- CONTACT PERSON -->
                                     <td>
+
                                         @quote.ContactPerson
+
                                     </td>
 
+
+                                    <!-- EMAIL -->
                                     <td>
-                                        @quote.ServiceRequired
+
+                                        <a href="mailto:@quote.Email">
+                                            @quote.Email
+                                        </a>
+
                                     </td>
 
+
+                                    <!-- PHONE -->
                                     <td>
-                                        @if (quote.Budget.HasValue)
+
+                                        @quote.Phone
+
+                                    </td>
+
+
+                                    <!-- PROJECT ADDRESS -->
+                                    <td class="address-column">
+
+                                        @(string.IsNullOrWhiteSpace(quote.ProjectAddress)
+                                                                        ? "Not provided"
+                                                                        : quote.ProjectAddress)
+
+                                    </td>
+
+
+                                    <!-- SERVICE -->
+                                    <td>
+
+                                        @(string.IsNullOrWhiteSpace(quote.ServiceRequired)
+                                                                        ? "Not specified"
+                                                                        : quote.ServiceRequired)
+
+                            </td>
+
+
+                                    <!-- BUDGET -->
+                                    <td>
+
+                                @if (quote.Budget.HasValue)
                                         {
                                             @quote.Budget.Value.ToString("C")
                                         }
@@ -331,52 +454,127 @@
                                                 Not specified
                                             </span>
                                         }
+
                                     </td>
 
+
+                                    <!-- START DATE -->
                                     <td>
-                                        @quote.DateSubmitted.ToString("dd MMM yyyy")
+
+                                        @if (quote.ExpectedStartDate.HasValue)
+                                        {
+                                            @quote.ExpectedStartDate.Value.ToString(
+                                            "dd MMM yyyy")
+                                                                }
+                                        else
+                                        {
+                                            <span>
+                                                Not specified
+                                            </span>
+                                        }
+
+                            </td>
+
+
+                            <!-- DESCRIPTION -->
+                            <td class="description-column">
+
+                                <div class="admin-description-text">
+
+                                    @(string.IsNullOrWhiteSpace(quote.Description)
+                                                                        ? "No description provided."
+                                                                        : quote.Description)
+
+                                </div>
+
                                     </td>
 
+
+                                    <!-- ATTACHMENT -->
                                     <td>
 
-                                        <form asp-controller="Admin"
-                                              asp-action="UpdateQuoteStatus"
-                                              method="post">
+                                @if (!string.IsNullOrWhiteSpace(
+                                                                quote.AttachmentPath))
+                                        {
+                                            <a href="@quote.AttachmentPath"
+                                               target="_blank"
+                                               rel="noopener noreferrer">
 
-                                            @Html.AntiForgeryToken()
+                                                <i class="fa-solid fa-paperclip me-1"></i>
 
-                                            <input type="hidden"
-                                                   name="id"
-                                                   value="@quote.Id" />
+                                                View Attachment
 
-                                            <select name="status"
-                                                    class="form-select form-select-sm"
-                                                    onchange="this.form.submit()">
-
-                                                <option selected="@(quote.Status == "New")">
-                                                    New
-                                                </option>
-
-                                                <option selected="@(quote.Status == "Reviewed")">
-                                                    Reviewed
-                                                </option>
-
-                                                <option selected="@(quote.Status == "Quoted")">
-                                                    Quoted
-                                                </option>
-
-                                                <option selected="@(quote.Status == "Closed")">
-                                                    Closed
-                                                </option>
-
-                                            </select>
-
-                                        </form>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                No attachment
+                                            </span>
+                                        }
 
                                     </td>
 
-                                </tr>
-                            }
+
+                                    <!-- DATE -->
+                                    <td>
+
+                                        @quote.DateSubmitted.ToString(
+                                        "dd MMM yyyy HH:mm")
+
+                            </td>
+
+
+                            <!-- ACTION -->
+                            <td class="action-column">
+
+                                <div class="admin-action-wrapper">
+
+                                    <form asp-controller="Admin"
+                                          asp-action="UpdateQuoteStatus"
+                                          method="post"
+                                          class="admin-action-form">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@quote.Id" />
+
+                                        <select name="status"
+                                                class="admin-action-select"
+                                                onchange="this.form.submit()">
+
+                                            <option value="New"
+                                                    selected="@(quote.Status == "New")">
+                                                New
+                                            </option>
+
+                                            <option value="Read"
+                                                    selected="@(quote.Status == "Read")">
+                                                Read
+                                            </option>
+
+                                            <option value="Quoted"
+                                                    selected="@(quote.Status == "Quoted")">
+                                                Quoted
+                                            </option>
+
+                                            <option value="Closed"
+                                                    selected="@(quote.Status == "Closed")">
+                                                Closed
+                                            </option>
+
+                                        </select>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                                                }
                         }
 
                     </tbody>

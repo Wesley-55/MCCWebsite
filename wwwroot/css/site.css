@@ -761,4 +761,902 @@ main {
             height: 400px !important;
             min-height: 400px;
         }
-} 
+}
+
+/* =========================================================
+   ADMIN DASHBOARD TABLES
+   ========================================================= */
+
+/* Allow large admin tables to scroll horizontally
+   instead of squeezing the columns. */
+
+.admin-table-card .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+
+/* CONTACT MESSAGES */
+
+.admin-messages-table {
+    min-width: 1500px;
+    width: 100%;
+}
+
+    .admin-messages-table th,
+    .admin-messages-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+
+        /* Contact table column widths */
+
+        .admin-messages-table th:nth-child(1),
+        .admin-messages-table td:nth-child(1) {
+            min-width: 150px;
+        }
+
+        .admin-messages-table th:nth-child(2),
+        .admin-messages-table td:nth-child(2) {
+            min-width: 150px;
+        }
+
+        .admin-messages-table th:nth-child(3),
+        .admin-messages-table td:nth-child(3) {
+            min-width: 220px;
+        }
+
+        .admin-messages-table th:nth-child(4),
+        .admin-messages-table td:nth-child(4) {
+            min-width: 130px;
+        }
+
+        .admin-messages-table th:nth-child(5),
+        .admin-messages-table td:nth-child(5) {
+            min-width: 180px;
+        }
+
+        .admin-messages-table th:nth-child(6),
+        .admin-messages-table td:nth-child(6) {
+            min-width: 400px;
+            max-width: 500px;
+        }
+
+        .admin-messages-table th:nth-child(7),
+        .admin-messages-table td:nth-child(7) {
+            min-width: 150px;
+        }
+
+        .admin-messages-table th:nth-child(8),
+        .admin-messages-table td:nth-child(8) {
+            min-width: 100px;
+        }
+
+        .admin-messages-table th:nth-child(9),
+        .admin-messages-table td:nth-child(9) {
+            min-width: 150px;
+        }
+
+
+        /* Keep customer messages readable */
+
+        .admin-messages-table td:nth-child(6) {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.6;
+        }
+
+
+        /* Keep the status/action controls readable */
+
+        .admin-messages-table td:last-child {
+            min-width: 150px;
+            width: 150px;
+            white-space: nowrap;
+        }
+
+            .admin-messages-table td:last-child form {
+                width: 140px;
+            }
+
+            .admin-messages-table td:last-child .form-select {
+                width: 140px;
+                min-width: 140px;
+            }
+
+
+/* =========================================================
+   ADMIN QUOTE REQUEST TABLE
+   ========================================================= */
+
+.admin-quotes-table {
+    min-width: 1900px;
+    width: 100%;
+}
+
+    .admin-quotes-table th,
+    .admin-quotes-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+
+    /* Quote description */
+
+    .admin-quotes-table .quote-description {
+        min-width: 350px;
+        max-width: 500px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.6;
+    }
+
+
+    /* Quote action/status control */
+
+    .admin-quotes-table td:last-child {
+        min-width: 150px;
+        width: 150px;
+        white-space: nowrap;
+    }
+
+        .admin-quotes-table td:last-child form {
+            width: 140px;
+        }
+
+        .admin-quotes-table td:last-child .form-select {
+            width: 140px;
+            min-width: 140px;
+        }
+
+
+/* =========================================================
+   ADMIN DASHBOARD RESPONSIVE TABLES
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .admin-table-card .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+/* =========================================================
+   ADMIN DASHBOARD - FINAL TABLE WIDTH FIX
+   ========================================================= */
+
+.admin-table-card .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto !important;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* CONTACT MESSAGES */
+
+.admin-messages-table {
+    min-width: 1750px !important;
+    width: max-content !important;
+    table-layout: auto !important;
+}
+
+    .admin-messages-table th,
+    .admin-messages-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+        /* Message */
+        .admin-messages-table th:nth-child(6),
+        .admin-messages-table td:nth-child(6) {
+            min-width: 400px !important;
+            width: 400px !important;
+        }
+
+        /* Date */
+        .admin-messages-table th:nth-child(7),
+        .admin-messages-table td:nth-child(7) {
+            min-width: 150px !important;
+            width: 150px !important;
+        }
+
+        /* Status */
+        .admin-messages-table th:nth-child(8),
+        .admin-messages-table td:nth-child(8) {
+            min-width: 110px !important;
+            width: 110px !important;
+        }
+
+        /* Action */
+        .admin-messages-table th:nth-child(9),
+        .admin-messages-table td:nth-child(9) {
+            min-width: 180px !important;
+            width: 180px !important;
+            max-width: 180px !important;
+            white-space: nowrap !important;
+        }
+
+            /* Status dropdown inside Action column */
+            .admin-messages-table td:nth-child(9) form {
+                width: 160px !important;
+                min-width: 160px !important;
+                margin: 0;
+            }
+
+            .admin-messages-table td:nth-child(9) .form-select {
+                width: 160px !important;
+                min-width: 160px !important;
+                max-width: 160px !important;
+                white-space: nowrap !important;
+            }
+
+
+/* =========================================================
+   QUOTE REQUESTS
+   ========================================================= */
+
+.admin-quotes-table {
+    min-width: 2000px !important;
+    width: max-content !important;
+    table-layout: auto !important;
+}
+
+    .admin-quotes-table th,
+    .admin-quotes-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+        /* Description */
+        .admin-quotes-table th:nth-child(9),
+        .admin-quotes-table td:nth-child(9) {
+            min-width: 400px !important;
+            width: 400px !important;
+        }
+
+        /* Attachment */
+        .admin-quotes-table th:nth-child(10),
+        .admin-quotes-table td:nth-child(10) {
+            min-width: 160px !important;
+            width: 160px !important;
+        }
+
+        /* Date */
+        .admin-quotes-table th:nth-child(11),
+        .admin-quotes-table td:nth-child(11) {
+            min-width: 150px !important;
+            width: 150px !important;
+        }
+
+        /* Status */
+        .admin-quotes-table th:nth-child(12),
+        .admin-quotes-table td:nth-child(12) {
+            min-width: 180px !important;
+            width: 180px !important;
+            max-width: 180px !important;
+            white-space: nowrap !important;
+        }
+
+            .admin-quotes-table td:nth-child(12) form {
+                width: 160px !important;
+                min-width: 160px !important;
+                margin: 0;
+            }
+
+            .admin-quotes-table td:nth-child(12) .form-select {
+                width: 160px !important;
+                min-width: 160px !important;
+                max-width: 160px !important;
+                white-space: nowrap !important;
+            }
+/* =========================================================
+   ADMIN STATUS ACTION CONTROLS
+   ========================================================= */
+
+.admin-status-select {
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
+    height: 44px !important;
+    padding: 8px 34px 8px 14px !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    border: 1px solid #d5d5d5 !important;
+    border-radius: 8px !important;
+    background-color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+/* Contact action column */
+
+.admin-messages-table td:last-child {
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+    .admin-messages-table td:last-child form {
+        width: 140px !important;
+        min-width: 140px !important;
+    }
+
+
+/* Quote action column */
+
+.admin-quotes-table td:last-child {
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+    .admin-quotes-table td:last-child form {
+        width: 140px !important;
+        min-width: 140px !important;
+    }
+
+/* =========================================================
+   ADMIN DASHBOARD TABLES
+   ========================================================= */
+
+/*
+   The admin tables contain more information than can comfortably
+   fit on one screen. The tables therefore scroll horizontally
+   instead of squeezing the information and controls.
+*/
+
+.admin-table-card .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   CONTACT MESSAGES TABLE
+   ========================================================= */
+
+.admin-messages-table {
+    min-width: 1750px;
+    width: max-content;
+    table-layout: auto;
+}
+
+    .admin-messages-table th,
+    .admin-messages-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+
+        /* Name */
+
+        .admin-messages-table th:nth-child(1),
+        .admin-messages-table td:nth-child(1) {
+            min-width: 150px;
+        }
+
+
+        /* Company */
+
+        .admin-messages-table th:nth-child(2),
+        .admin-messages-table td:nth-child(2) {
+            min-width: 150px;
+        }
+
+
+        /* Email */
+
+        .admin-messages-table th:nth-child(3),
+        .admin-messages-table td:nth-child(3) {
+            min-width: 220px;
+        }
+
+
+        /* Phone */
+
+        .admin-messages-table th:nth-child(4),
+        .admin-messages-table td:nth-child(4) {
+            min-width: 130px;
+        }
+
+
+        /* Subject */
+
+        .admin-messages-table th:nth-child(5),
+        .admin-messages-table td:nth-child(5) {
+            min-width: 180px;
+        }
+
+
+        /* Message */
+
+        .admin-messages-table th:nth-child(6),
+        .admin-messages-table td:nth-child(6) {
+            min-width: 400px;
+            max-width: 500px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.6;
+        }
+
+
+        /* Date */
+
+        .admin-messages-table th:nth-child(7),
+        .admin-messages-table td:nth-child(7) {
+            min-width: 150px;
+        }
+
+
+        /* Status */
+
+        .admin-messages-table th:nth-child(8),
+        .admin-messages-table td:nth-child(8) {
+            min-width: 110px;
+        }
+
+
+        /* =========================================================
+   CONTACT ACTION COLUMN
+   ========================================================= */
+
+        .admin-messages-table th:last-child,
+        .admin-messages-table td:last-child {
+            width: 160px;
+            min-width: 160px;
+            max-width: 160px;
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+
+            /* Action form */
+
+            .admin-messages-table td:last-child form {
+                width: 140px;
+                min-width: 140px;
+                max-width: 140px;
+                margin: 0;
+                padding: 0;
+            }
+
+
+            /* Action dropdown */
+
+            .admin-messages-table td:last-child select {
+                display: block;
+                width: 140px;
+                min-width: 140px;
+                max-width: 140px;
+                height: 44px;
+                padding: 8px 36px 8px 14px;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 1.5;
+                border: 1px solid #d5d5d5;
+                border-radius: 8px;
+                background-color: #ffffff;
+                box-sizing: border-box;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                cursor: pointer;
+            }
+
+
+/* =========================================================
+   QUOTE REQUESTS TABLE
+   ========================================================= */
+
+.admin-quotes-table {
+    min-width: 2000px;
+    width: max-content;
+    table-layout: auto;
+}
+
+    .admin-quotes-table th,
+    .admin-quotes-table td {
+        vertical-align: middle;
+        padding: 16px 12px;
+    }
+
+
+        /* Company */
+
+        .admin-quotes-table th:nth-child(1),
+        .admin-quotes-table td:nth-child(1) {
+            min-width: 180px;
+        }
+
+
+        /* Contact Person */
+
+        .admin-quotes-table th:nth-child(2),
+        .admin-quotes-table td:nth-child(2) {
+            min-width: 170px;
+        }
+
+
+        /* Email */
+
+        .admin-quotes-table th:nth-child(3),
+        .admin-quotes-table td:nth-child(3) {
+            min-width: 220px;
+        }
+
+
+        /* Phone */
+
+        .admin-quotes-table th:nth-child(4),
+        .admin-quotes-table td:nth-child(4) {
+            min-width: 130px;
+        }
+
+
+        /* Project Address */
+
+        .admin-quotes-table th:nth-child(5),
+        .admin-quotes-table td:nth-child(5) {
+            min-width: 220px;
+        }
+
+
+        /* Service */
+
+        .admin-quotes-table th:nth-child(6),
+        .admin-quotes-table td:nth-child(6) {
+            min-width: 180px;
+        }
+
+
+        /* Budget */
+
+        .admin-quotes-table th:nth-child(7),
+        .admin-quotes-table td:nth-child(7) {
+            min-width: 150px;
+        }
+
+
+        /* Start Date */
+
+        .admin-quotes-table th:nth-child(8),
+        .admin-quotes-table td:nth-child(8) {
+            min-width: 150px;
+        }
+
+
+        /* Description */
+
+        .admin-quotes-table th:nth-child(9),
+        .admin-quotes-table td:nth-child(9) {
+            min-width: 400px;
+            max-width: 500px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            line-height: 1.6;
+        }
+
+
+        /* Attachment */
+
+        .admin-quotes-table th:nth-child(10),
+        .admin-quotes-table td:nth-child(10) {
+            min-width: 160px;
+        }
+
+
+        /* Date */
+
+        .admin-quotes-table th:nth-child(11),
+        .admin-quotes-table td:nth-child(11) {
+            min-width: 150px;
+        }
+
+
+        /* Status / Action */
+
+        .admin-quotes-table th:last-child,
+        .admin-quotes-table td:last-child {
+            width: 160px;
+            min-width: 160px;
+            max-width: 160px;
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+
+            /* Quote action form */
+
+            .admin-quotes-table td:last-child form {
+                width: 140px;
+                min-width: 140px;
+                max-width: 140px;
+                margin: 0;
+                padding: 0;
+            }
+
+
+            /* Quote action dropdown */
+
+            .admin-quotes-table td:last-child select {
+                display: block;
+                width: 140px;
+                min-width: 140px;
+                max-width: 140px;
+                height: 44px;
+                padding: 8px 36px 8px 14px;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 1.5;
+                border: 1px solid #d5d5d5;
+                border-radius: 8px;
+                background-color: #ffffff;
+                box-sizing: border-box;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                cursor: pointer;
+            }
+
+
+/* =========================================================
+   ADMIN STATUS SELECT
+   ========================================================= */
+
+/*
+   This class can also be used directly on the select element
+   if the Dashboard view contains class="admin-status-select".
+*/
+
+.admin-status-select {
+    display: block;
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+    height: 44px;
+    padding: 8px 36px 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ADMIN TABLE CARD
+   ========================================================= */
+
+.admin-table-card {
+    overflow: visible;
+}
+
+
+/* =========================================================
+   ADMIN TABLE RESPONSIVE SUPPORT
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .admin-table-card .table-responsive {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
+/* =========================================================
+   SMALL SCREEN ADMIN TABLES
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .admin-messages-table,
+    .admin-quotes-table {
+        font-size: 14px;
+    }
+}
+/* =========================================================
+   ADMIN DASHBOARD - FINAL TABLE CONTROLS
+   ========================================================= */
+
+.admin-table-scroll {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    width: 100% !important;
+}
+
+.admin-messages-table,
+.admin-quotes-table {
+    width: max-content !important;
+    min-width: 100% !important;
+    table-layout: auto !important;
+}
+
+    /* MESSAGE / DESCRIPTION */
+
+    .admin-messages-table .message-column {
+        width: 450px !important;
+        min-width: 450px !important;
+        max-width: 550px !important;
+    }
+
+.admin-message-text {
+    width: 100% !important;
+    min-width: 350px !important;
+    max-width: 550px !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.5 !important;
+}
+
+/* QUOTE DESCRIPTION */
+
+.admin-quotes-table .description-column {
+    width: 450px !important;
+    min-width: 450px !important;
+    max-width: 550px !important;
+}
+
+.admin-description-text {
+    width: 100% !important;
+    min-width: 350px !important;
+    max-width: 550px !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.5 !important;
+}
+
+/* PROJECT ADDRESS */
+
+.admin-quotes-table .address-column {
+    min-width: 220px !important;
+    max-width: 300px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+/* =========================================================
+   ACTION COLUMN
+   ========================================================= */
+
+.admin-messages-table .action-column,
+.admin-quotes-table .action-column {
+    width: 190px !important;
+    min-width: 190px !important;
+    max-width: 190px !important;
+    padding: 14px !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+
+/* ACTION WRAPPER */
+
+.admin-action-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 170px !important;
+    min-width: 170px !important;
+    max-width: 170px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* ACTION FORM */
+
+.admin-action-form {
+    display: block !important;
+    width: 170px !important;
+    min-width: 170px !important;
+    max-width: 170px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* ACTION SELECT */
+
+.admin-action-select {
+    display: block !important;
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    margin: 0 !important;
+    padding: 8px 38px 8px 12px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    cursor: pointer !important;
+}
+
+    /* REMOVE BOOTSTRAP SMALL SELECT SIZING */
+
+    .admin-action-select.form-select-sm,
+    .admin-action-select.form-select {
+        width: 160px !important;
+        min-width: 160px !important;
+        max-width: 160px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+        font-size: 14px !important;
+    }
+
+/* TABLE CELLS */
+
+.admin-messages-table td,
+.admin-quotes-table td {
+    vertical-align: middle !important;
+}
+
+    /* KEEP ACTION CONTROL VISIBLE */
+
+    .admin-messages-table td.action-column,
+    .admin-quotes-table td.action-column {
+        overflow: visible !important;
+    }
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .admin-messages-table .action-column,
+    .admin-quotes-table .action-column {
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: 180px !important;
+    }
+
+    .admin-action-wrapper,
+    .admin-action-form {
+        width: 160px !important;
+        min-width: 160px !important;
+        max-width: 160px !important;
+    }
+
+    .admin-action-select {
+        width: 150px !important;
+        min-width: 150px !important;
+        max-width: 150px !important;
+    }
+}

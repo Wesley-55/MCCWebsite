@@ -13,7 +13,7 @@
     <!-- MCC Favicon -->
     <link rel="icon"
           type="image/png"
-          href="~/images/logos/Logo.png" />
+          href="~/Images/logos/Logo.png" />
 
     <!-- Bootstrap -->
     <link rel="stylesheet"
@@ -121,7 +121,7 @@
                asp-controller="Home"
                asp-action="Index">
 
-                <img src="~/images/logos/Logo.png"
+                <img src="~/Images/logos/Logo.png"
                      alt="MCC Construction"
                      height="55"
                      class="me-3" />
@@ -448,22 +448,59 @@
                              ADMIN LOGIN
                              ONLY ONE ADMIN LOGIN LINK
                              ================================================= -->
+                        @if (User.Identity?.IsAuthenticated == true &&
+                                                User.IsInRole("Administrator"))
+                        {
+                            <li class="admin-login-link">
 
-                        <li class="admin-login-link">
+                                <a asp-controller="Admin"
+                                   asp-action="Dashboard">
 
-                            <a asp-controller="Admin"
-                               asp-action="Login">
+                                    <i class="fa-solid fa-gauge-high me-1"></i>
 
-                                <i class="fa-solid fa-lock me-1"></i>
+                                    Admin Dashboard
 
-                                Admin Login
+                                </a>
 
-                            </a>
+                            </li>
 
-                        </li>
+                            <li class="admin-login-link">
 
+                                <form asp-controller="Admin"
+                                      asp-action="Logout"
+                                      method="post"
+                                      class="d-inline">
 
-                    </ul>
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-link p-0 admin-logout-button">
+
+                                        <i class="fa-solid fa-right-from-bracket me-1"></i>
+
+                                        Logout
+
+                                    </button>
+
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="admin-login-link">
+
+                                <a asp-controller="Admin"
+                                   asp-action="Login">
+
+                                    <i class="fa-solid fa-lock me-1"></i>
+
+                                    Admin Login
+
+                                </a>
+
+                            </li>
+                        }
 
                 </div>
 
