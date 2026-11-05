@@ -27,7 +27,7 @@ namespace MCCConstruction.Models
         [Required(ErrorMessage = "Please enter your message.")]
         public string Message { get; set; } = string.Empty;
 
-        public DateTime DateSent { get; set; } = DateTime.Now;
+        public DateTime DateSent { get; set; } = DateTime.UtcNow;
 
         public string Status { get; set; } = "New";
     }

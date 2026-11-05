@@ -1,20 +1,27 @@
 ﻿using MCCConstruction.Data;
 using MCCConstruction.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace MCCConstruction.Controllers
 {
     public class QuoteController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<QuoteController> _logger;
 
         public QuoteController(
             ApplicationDbContext context,
-            IWebHostEnvironment environment)
+            IHttpClientFactory httpClientFactory,
+            IConfiguration configuration,
+            ILogger<QuoteController> logger)
         {
             _context = context;
-            _environment = environment;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         // GET: /Quote
@@ -31,58 +38,48 @@ namespace MCCConstruction.Controllers
             QuoteRequest quoteRequest,
             IFormFile? attachment)
         {
+            string? uploadedObjectPath = null;
+
             // ==========================================
             // VALIDATE ATTACHMENT
             // ==========================================
+
+            var allowedContentTypes = new Dictionary<string, string>(
+                StringComparer.OrdinalIgnoreCase)
+            {
+                { ".pdf", "application/pdf" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".png", "image/png" },
+                { ".webp", "image/webp" }
+            };
 
             if (attachment != null && attachment.Length > 0)
             {
                 const long maximumFileSize = 10 * 1024 * 1024;
 
-                var allowedExtensions = new HashSet<string>(
-                    StringComparer.OrdinalIgnoreCase)
-                {
-                    ".pdf",
-                    ".doc",
-                    ".docx",
-                    ".jpg",
-                    ".jpeg",
-                    ".png"
-                };
+                var extension = Path.GetExtension(attachment.FileName);
 
-                var extension = Path
-                    .GetExtension(attachment.FileName)
-                    .ToLowerInvariant();
-
-                // Validate extension
                 if (string.IsNullOrWhiteSpace(extension) ||
-                    !allowedExtensions.Contains(extension))
+                    !allowedContentTypes.ContainsKey(extension))
                 {
                     ModelState.AddModelError(
                         "AttachmentPath",
-                        "Only PDF, Word, JPG and PNG files are allowed.");
-
-                    return View(quoteRequest);
+                        "Only PDF, JPG, PNG and WEBP files are allowed.");
                 }
 
-                // Validate file size
                 if (attachment.Length > maximumFileSize)
                 {
                     ModelState.AddModelError(
                         "AttachmentPath",
-                        "The attachment must be smaller than 10 MB.");
-
-                    return View(quoteRequest);
+                        "The attachment must not exceed 10 MB.");
                 }
 
-                // Validate that the file has a filename
                 if (string.IsNullOrWhiteSpace(attachment.FileName))
                 {
                     ModelState.AddModelError(
                         "AttachmentPath",
                         "The selected file is invalid.");
-
-                    return View(quoteRequest);
                 }
             }
 
@@ -95,47 +92,83 @@ namespace MCCConstruction.Controllers
                 return View(quoteRequest);
             }
 
-            string? savedFilePath = null;
-
             try
             {
                 // ==========================================
-                // SAVE ATTACHMENT
+                // UPLOAD ATTACHMENT TO SUPABASE
                 // ==========================================
 
                 if (attachment != null && attachment.Length > 0)
                 {
-                    var extension = Path
-                        .GetExtension(attachment.FileName)
-                        .ToLowerInvariant();
+                    var supabaseUrl = _configuration["Supabase:Url"];
+                    var bucket = _configuration["Supabase:Bucket"];
+                    var secretKey = _configuration["Supabase:ServiceRoleKey"];
 
-                    var uploadFolder = Path.Combine(
-                        _environment.WebRootPath,
-                        "uploads",
-                        "quotes");
-
-                    Directory.CreateDirectory(uploadFolder);
-
-                    // Never use the original filename.
-                    // Generate a unique server-side filename instead.
-                    var safeFileName =
-                        $"{Guid.NewGuid():N}{extension}";
-
-                    savedFilePath = Path.Combine(
-                        uploadFolder,
-                        safeFileName);
-
-                    await using (var stream = new FileStream(
-                        savedFilePath,
-                        FileMode.CreateNew,
-                        FileAccess.Write,
-                        FileShare.None))
+                    if (string.IsNullOrWhiteSpace(supabaseUrl) ||
+                        string.IsNullOrWhiteSpace(bucket) ||
+                        string.IsNullOrWhiteSpace(secretKey))
                     {
-                        await attachment.CopyToAsync(stream);
+                        throw new InvalidOperationException(
+                            "Supabase Storage configuration is missing.");
                     }
 
-                    quoteRequest.AttachmentPath =
-                        $"/uploads/quotes/{safeFileName}";
+                    var extension = Path.GetExtension(attachment.FileName);
+
+                    var contentType = allowedContentTypes[extension];
+
+                    // Generate a unique filename.
+                    var safeFileName =
+                        $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
+
+                    var folder = Guid.NewGuid().ToString("N");
+
+                    uploadedObjectPath = $"{folder}/{safeFileName}";
+
+                    var uploadUrl =
+                        $"{supabaseUrl.TrimEnd('/')}/storage/v1/object/" +
+                        $"{Uri.EscapeDataString(bucket)}/" +
+                        $"{uploadedObjectPath}";
+
+                    var httpClient = _httpClientFactory.CreateClient();
+
+                    using var uploadRequest = new HttpRequestMessage(
+                        HttpMethod.Post,
+                        uploadUrl);
+
+                    uploadRequest.Headers.Add("apikey", secretKey);
+
+                    uploadRequest.Headers.Authorization =
+                        new AuthenticationHeaderValue(
+                            "Bearer", secretKey);
+
+                    uploadRequest.Headers.Add("x-upsert", "false");
+
+                    var fileContent = new StreamContent(
+                        attachment.OpenReadStream());
+
+                    fileContent.Headers.ContentType =
+                        new MediaTypeHeaderValue(contentType);
+
+                    uploadRequest.Content = fileContent;
+
+                    using var uploadResponse =
+                        await httpClient.SendAsync(uploadRequest);
+
+                    if (!uploadResponse.IsSuccessStatusCode)
+                    {
+                        var error = await uploadResponse.Content.ReadAsStringAsync();
+
+                        _logger.LogError(
+                            "Supabase upload failed. Status: {StatusCode}. Response: {Response}",
+                            uploadResponse.StatusCode,
+                            error);
+
+                        throw new Exception(
+                            "The attachment could not be uploaded.");
+                    }
+
+                    // Save the storage path in PostgreSQL.
+                    quoteRequest.AttachmentPath = uploadedObjectPath;
                 }
                 else
                 {
@@ -146,7 +179,7 @@ namespace MCCConstruction.Controllers
                 // SET SYSTEM VALUES
                 // ==========================================
 
-                quoteRequest.DateSubmitted = DateTime.Now;
+                quoteRequest.DateSubmitted = DateTime.UtcNow;
                 quoteRequest.Status = "New";
 
                 // ==========================================
@@ -167,14 +200,61 @@ namespace MCCConstruction.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                // If the database operation fails after the
-                // file was uploaded, remove the orphaned file.
-                if (savedFilePath != null &&
-                    System.IO.File.Exists(savedFilePath))
+                _logger.LogError(
+                    ex,
+                    "Failed to submit a quote request.");
+
+                // ==========================================
+                // DELETE UPLOADED FILE IF DATABASE FAILS
+                // ==========================================
+
+                if (!string.IsNullOrWhiteSpace(uploadedObjectPath))
                 {
-                    System.IO.File.Delete(savedFilePath);
+                    try
+                    {
+                        var supabaseUrl = _configuration["Supabase:Url"];
+                        var bucket = _configuration["Supabase:Bucket"];
+                        var secretKey = _configuration["Supabase:ServiceRoleKey"];
+
+                        if (!string.IsNullOrWhiteSpace(supabaseUrl) &&
+                            !string.IsNullOrWhiteSpace(bucket) &&
+                            !string.IsNullOrWhiteSpace(secretKey))
+                        {
+                            var deleteUrl =
+                                $"{supabaseUrl.TrimEnd('/')}/storage/v1/object/" +
+                                $"{Uri.EscapeDataString(bucket)}/" +
+                                $"{uploadedObjectPath}";
+
+                            var httpClient = _httpClientFactory.CreateClient();
+
+                            using var deleteRequest = new HttpRequestMessage(
+                                HttpMethod.Delete,
+                                deleteUrl);
+
+                            deleteRequest.Headers.Add("apikey", secretKey);
+
+                            deleteRequest.Headers.Authorization =
+                                new AuthenticationHeaderValue(
+                                    "Bearer", secretKey);
+
+                            using var deleteResponse =
+                                await httpClient.SendAsync(deleteRequest);
+
+                            if (!deleteResponse.IsSuccessStatusCode)
+                            {
+                                _logger.LogWarning(
+                                    "Could not delete orphaned Supabase attachment.");
+                            }
+                        }
+                    }
+                    catch (Exception cleanupException)
+                    {
+                        _logger.LogError(
+                            cleanupException,
+                            "Failed to clean up uploaded attachment.");
+                    }
                 }
 
                 ModelState.AddModelError(

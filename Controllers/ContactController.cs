@@ -8,7 +8,8 @@ namespace MCCConstruction.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ContactController(ApplicationDbContext context)
+
+    public ContactController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +31,8 @@ namespace MCCConstruction.Controllers
                 return View(contactMessage);
             }
 
-            contactMessage.DateSent = DateTime.Now;
+            // Use UTC for PostgreSQL timestamp with time zone
+            contactMessage.DateSent = DateTime.UtcNow;
             contactMessage.Status = "New";
 
             _context.ContactMessages.Add(contactMessage);
@@ -43,4 +45,6 @@ namespace MCCConstruction.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+
+
 }

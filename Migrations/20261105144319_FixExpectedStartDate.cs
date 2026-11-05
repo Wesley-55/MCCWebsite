@@ -5,7 +5,7 @@
 namespace MccConstruction.Migrations
 {
     /// <inheritdoc />
-    public partial class FixQuoteBudgetPrecision : Migration
+    public partial class FixExpectedStartDate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -36,9 +36,11 @@ namespace MCCConstruction.Models
 
         public string Description { get; set; } = string.Empty;
 
+        // Stores the private Supabase Storage object path.
         public string AttachmentPath { get; set; } = string.Empty;
 
-        public DateTime DateSubmitted { get; set; } = DateTime.Now;
+        // Store submission timestamps in UTC.
+        public DateTime DateSubmitted { get; set; } = DateTime.UtcNow;
 
         public string Status { get; set; } = "New";
     }
